@@ -24,6 +24,8 @@ use App\Http\Controllers\UserController;
 
 // front page route
 Route::get('/register',[UserController::class,'register']);
+Route::post('/registerP', [UserController::class,'registerP']);
+
 Route::get('/user-login',[UserController::class,'userlogin']);
 Route::get('/',[UserController::class,'index']);
 Route::get('/contact',[UserController::class,'contact']);

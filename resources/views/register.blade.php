@@ -1,23 +1,3 @@
-<?php
-//include_once('include/config.php');
-//if(isset($_POST['submit']))
-//{
-//$fname=$_POST['full_name'];
-//$address=$_POST['address'];
-//$city=$_POST['city'];
-//$gender=$_POST['gender'];
-//$email=$_POST['email'];
-//$password=md5($_POST['password']);
-//$query=mysqli_query($con,"insert into users(fullname,address,city,gender,email,password) values('$fname','$address','$city','$gender','$email','$password')");
-//if($query)
-//{
-//	echo "<script>alert('Successfully Registered. You can login now');</script>";
-	//header('location:user-login.php');
-//}
-//}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,20 +15,6 @@
 		<link rel="stylesheet" href="assets/css/plugins.css">
 		<link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color" />
 		
-		<script type="text/javascript">
-function valid()
-{
- if(document.registration.password.value!= document.registration.password_again.value)
-{
-alert("Password and Confirm Password Field do not match  !!");
-document.registration.password_again.focus();
-return false;
-}
-return true;
-}
-</script>
-		
-
 	</head>
 
 	<body class="login">
@@ -60,7 +26,7 @@ return true;
 				</div>
 				<!-- start: REGISTER BOX -->
 				<div class="box-register">
-					<form name="registration" id="registration"  method="post" onSubmit="return valid();">
+					<!-- <form name="registration" id="registration"  method="post" onSubmit="return valid();">
 						<fieldset>
 							<legend>
 								Sign Up
@@ -131,8 +97,68 @@ return true;
 								</button>
 							</div>
 						</fieldset>
+					</form> -->
+					<div id="register-message" class="text-success"></div>
+					<form id="register-form">
+						@csrf
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" class="form-control" id="name" name="name">
+						</div>
+						<div class="form-group">
+							<label for="address">Address</label>
+							<input type="text" class="form-control" id="address" name="address">
+						</div>
+						<div class="form-group">
+							<label for="city">City</label>
+							<input type="text" class="form-control" id="city" name="city">
+						</div>
+						
+					<div class="form-group">
+						<label for="gender">Gender</label>
+						<select class="form-control" id="gender" name="gender">
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
+					</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" id="email" name="email">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" id="password" name="password">
+						</div>
+						<div class="form-group">
+							<label for="password-confirm">Confirm Password</label>
+							<input type="password" class="form-control" id="password-confirm" name="password_confirmation">
+						</div>
+						<button type="submit" class="btn btn-primary">Register</button>
 					</form>
+					<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+					<script>
+						$(document).ready(function(){
+							$("#register-form").submit(function(e){
+								e.preventDefault();
 
+								$.ajax({
+									type: "POST",
+									url: '/registerP',
+									data: $("#register-form").serialize(),
+									success: function(response) {
+										$("#register-message").html(response.message);
+										$('#register-form')[0].reset();
+										setTimeout(function(){
+       									 $("#register-message").hide();
+    									}, 3000);
+									},
+									error: function(response) {
+										$("#register-message").html(response.responseJSON.error);
+									}
+								});
+							});
+						});
+					</script>
 					<div class="copyright">
 						&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> HMS</span>. <span>All rights reserved</span>
 					</div>
@@ -141,7 +167,7 @@ return true;
 
 			</div>
 		</div>
-		<script src="vendor/jquery/jquery.min.js"></script>
+		<!-- <script src="vendor/jquery/jquery.min.js"></script> -->
 		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="vendor/modernizr/modernizr.js"></script>
 		<script src="vendor/jquery-cookie/jquery.cookie.js"></script>
@@ -149,30 +175,7 @@ return true;
 		<script src="vendor/switchery/switchery.min.js"></script>
 		<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 		<script src="assets/js/main.js"></script>
-		<script src="assets/js/login.js"></script>
-		<script>
-			jQuery(document).ready(function() {
-				Main.init();
-				Login.init();
-			});
-		</script>
-		
-	<script>
-function userAvailability() {
-$("#loaderIcon").show();
-jQuery.ajax({
-url: "check_availability.php",
-data:'email='+$("#email").val(),
-type: "POST",
-success:function(data){
-$("#user-availability-status1").html(data);
-$("#loaderIcon").hide();
-},
-error:function (){}
-});
-}
-</script>	
-		
+		<script src="assets/js/login.js"></script>	
 	</body>
 	<!-- end: BODY -->
 </html>
