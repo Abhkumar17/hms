@@ -13,9 +13,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/register', function () {
-//     return view('register');
-// });
+Route::get('/home', function () {
+    return view('home');
+});
 
 // Route::get('/user-login', function () {
 //     return view('user-login');
@@ -25,8 +25,10 @@ use App\Http\Controllers\UserController;
 // front page route
 Route::get('/register',[UserController::class,'register']);
 Route::post('/registerP', [UserController::class,'registerP']);
-
 Route::get('/user-login',[UserController::class,'userlogin']);
+Route::post('/login', [UserController::class,'login']);
+Route::get('/logout', [UserController::class,'logout']);
+Route::get('/dashboard',[UserController::class,'dashboard']);
 Route::get('/',[UserController::class,'index']);
 Route::get('/contact',[UserController::class,'contact']);
 
