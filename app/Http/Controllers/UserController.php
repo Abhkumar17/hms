@@ -26,7 +26,7 @@ class UserController extends Controller
     public function userlogin(){
         return view('user-login');
     }
-
+    // Register Petient
     public function registerP(Request $request)
     {
         // Validate the form data
@@ -36,7 +36,7 @@ class UserController extends Controller
             'city' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Successfully registered']);
     }
-
+    // login Petient
     public function login(Request $request)
     {
         $validatedData = $request->validate([
@@ -73,6 +73,15 @@ class UserController extends Controller
         }
     }
 
+    
+    // logout Petient
+    public function logout()
+    {
+        auth()->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    // Petient Dashboard
     public function dashboard(){
         return view('dashboard');
     }

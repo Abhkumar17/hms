@@ -13,8 +13,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/dashboard', function () {
+    return view('dashboard');
 });
 
 // Route::get('/user-login', function () {
@@ -28,8 +28,15 @@ Route::post('/registerP', [UserController::class,'registerP']);
 Route::get('/user-login',[UserController::class,'userlogin']);
 Route::post('/login', [UserController::class,'login']);
 Route::get('/logout', [UserController::class,'logout']);
-Route::get('/dashboard',[UserController::class,'dashboard']);
 Route::get('/',[UserController::class,'index']);
 Route::get('/contact',[UserController::class,'contact']);
+
+// Patient page route under the middleware
+
+Route::middleware(['pauth' => \App\Http\Middleware\PAuthenticate::class])->group(function () {
+    Route::get('dashboard',[UserController::class,'dashboard'])->name('dashboard');
+});
+
+
 
 

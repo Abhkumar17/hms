@@ -12,16 +12,22 @@
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<link rel="stylesheet" href="assets/css/plugins.css">
 		<link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color" />
+		<style>
+			body{
+				background-color: #196ba6;
+			}
+		</style>
 	</head>
 	<body class="login">
 		<div class="row">
 			<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 				<div class="logo margin-top-30">
-				<a href="../index.html"><h2> HMS | Patient Login</h2></a>
+				<a href="../index.html"><h2 class="text-white"> HMS | Patient Login</h2></a>
 				</div>
 
 				<div class="box-login">
-					<!-- <form class="form-login" method="post">
+					<form id="login-form" method="post">
+						@csrf
 						<fieldset>
 							<legend>
 								Sign in to your account
@@ -32,14 +38,14 @@
 							</p>
 							<div class="form-group">
 								<span class="input-icon">
-									<input type="text" class="form-control" name="username" placeholder="Username">
+									<input type="text" class="form-control" name="email" id="email" placeholder="Email">
 									<i class="fa fa-user"></i> </span>
 							</div>
 							<div class="form-group form-actions">
 								<span class="input-icon">
-									<input type="password" class="form-control password" name="password" placeholder="Password">
+									<input type="password" class="form-control password" name="password" id="password" placeholder="Password">
 									<i class="fa fa-lock"></i>
-									 </span><a href="forgot-password.php">
+									 </span><a href="#">
 									Forgot Password ?
 								</a>
 							</div>
@@ -56,23 +62,8 @@
 								</a>
 							</div>
 						</fieldset>
-					</form> -->
-
-					<form id="login-form">
-					    @csrf	
-						<div class="form-group">
-						<label for="email">Email</label>
-						<input type="email" class="
-						form-control" id="email" name="email">
-						</div>
-						<div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" id="password" name="password">
-						</div>
-						<button type="submit" class="btn btn-primary">Login</button>
-
-				     </form>
-						<div id="login-message"></div>
+					</form>
+					<div id="login-message"></div>
 					<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 					<script>
 						$(document).ready(function(){
@@ -86,7 +77,7 @@
 									success: function(response) {
 										$("#login-message").html(response.message);
 										//Redirect the user to the appropriate page
-										window.location.href = '/home';
+										window.location.href = '/dashboard';
 									},
 									error: function(response) {
 										$("#login-message").html(response.responseJSON.error);
@@ -97,7 +88,7 @@
 					</script>
 
 					<div class="copyright">
-						&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> HMS</span>. <span>All rights reserved</span>
+						&copy; <span class="current-year">2023</span><span class="text-warning text-uppercase "> &nbsp; &nbsp;Xenottabyte Serviece pvt.ltd</span>. <span>All rights reserved</span>
 					</div>
 			
 				</div>
